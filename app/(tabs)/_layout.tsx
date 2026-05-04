@@ -34,7 +34,6 @@ export default function _layout() {
         <Tabs.Screen
           name="index"
           options={{
-            title: "Search",
             tabBarIcon: () => {
               return <Search></Search>;
             },

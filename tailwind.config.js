@@ -18,7 +18,7 @@ module.exports = {
         text: {
           secondary: "#007AFF",
           teritary: "#3e2a01",
-          nuetral: "#777779",
+          nuetral: "#e0e0e0",
         },
       },
       fontFamily: {
