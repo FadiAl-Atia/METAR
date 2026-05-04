@@ -13,6 +13,7 @@
     "@gluestack-ui/core": "^3.0.19",
     "@gluestack-ui/utils": "^3.0.21",
     "@legendapp/motion": "^2.5.3",
+    "@tanstack/react-form": "^1.29.1",
     "babel-plugin-module-resolver": "^5.0.3",
     "babel-preset-expo": "^55.0.19",
     "expo": "~54.0.33",
