@@ -29,13 +29,23 @@ export default function _layout() {
       <Tabs
         screenOptions={{
           headerShown: false,
+          tabBarLabelStyle: {
+            fontFamily: "Mono",
+            marginTop: 2,
+          },
+          tabBarStyle: {
+            backgroundColor: "white",
+            borderRadius: 8,
+          },
+
+          tabBarActiveTintColor: "#1565C0",
         }}
       >
         <Tabs.Screen
           name="index"
           options={{
-            tabBarIcon: () => {
-              return <Search color={"#1a2e4a"}></Search>;
+            tabBarIcon: ({ color }) => {
+              return <Search color={color}></Search>;
             },
             title: "Search",
           }}
@@ -44,8 +54,8 @@ export default function _layout() {
           name="METAR"
           options={{
             title: "METAR",
-            tabBarIcon: () => {
-              return <Cloud></Cloud>;
+            tabBarIcon: ({ color }) => {
+              return <Cloud color={color}></Cloud>;
             },
           }}
         ></Tabs.Screen>

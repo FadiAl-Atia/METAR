@@ -8,7 +8,7 @@ export default function index() {
     <SafeAreaView edges={["top"]} className="flex flex-1 bg-white">
       <Header />
       <View className="flex-1 bg-text-nuetral pl-4 justify-center items-center">
-        <Text className="text-green-500 font-[Mono]">hello</Text>
+        <Text className="text-green-500 font-[Mono]">Search</Text>
       </View>
     </SafeAreaView>
   );
