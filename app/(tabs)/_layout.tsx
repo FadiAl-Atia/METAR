@@ -35,8 +35,9 @@ export default function _layout() {
           name="index"
           options={{
             tabBarIcon: () => {
-              return <Search></Search>;
+              return <Search color={"#1a2e4a"}></Search>;
             },
+            title: "Search",
           }}
         ></Tabs.Screen>
         <Tabs.Screen

@@ -13,12 +13,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        brand: { DEFAULT: "#1a2e4a" },
+        brand: { DEFAULT: "#1565C0" },
         danger: { DEFAULT: "#9F403D" },
         text: {
           secondary: "#007AFF",
-          teritary: "#3e2a01",
-          nuetral: "#e0e0e0",
+          teritary: "#4A90A4",
+          nuetral: "#f7f7f7",
         },
       },
       fontFamily: {
