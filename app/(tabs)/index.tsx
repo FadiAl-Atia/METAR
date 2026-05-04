@@ -3,16 +3,8 @@ import React from "react";
 
 export default function index() {
   return (
-    <View style={styles.layout}>
-      <Text>Hi</Text>
+    <View className="flex flex-1 justify-center items-center">
+      <Text className="text-green-500 font-[Mono]">hello</Text>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  layout: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
