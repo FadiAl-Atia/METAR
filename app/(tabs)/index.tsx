@@ -11,7 +11,7 @@ export default function index() {
   return (
     <SafeAreaView edges={["top"]} className="flex flex-1 bg-white">
       <Header />
-      <View className="flex-1 bg-text-nuetral pl-4 justify-center items-center">
+      <View className="flex-1 bg-text-nuetral justify-center items-center">
         <View className="h-16 w-16 bg-[#e6ebf0] flex justify-center items-center rounded-full mb-6 ">
           <Plane color={"#1565C0"} fill={"#1565C0"} strokeWidth={1}></Plane>
         </View>
@@ -31,7 +31,12 @@ export default function index() {
             autoCapitalize="characters"
           ></InputField>
         </Input>
-        <Button variant="solid" size="md" action="negative" className="">
+        <Button
+          variant="solid"
+          size="md"
+          action="primary"
+          className="bg-brand mb-3"
+        >
           <ButtonText>Click me</ButtonText>
         </Button>
         <ThemedText styles="text-[#94A3B8] text-sm text-center">
