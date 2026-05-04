@@ -1,6 +1,7 @@
 import React from "react";
 import { Tabs } from "expo-router";
 import { Search, Cloud } from "lucide-react-native";
+import "../../global.css";
 
 export default function _layout() {
   return (

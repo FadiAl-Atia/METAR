@@ -4,7 +4,7 @@ import React from "react";
 export default function index() {
   return (
     <View style={styles.layout}>
-      <Text>Hi</Text>
+      <Text className="text-red-500">Hi</Text>
     </View>
   );
 }
