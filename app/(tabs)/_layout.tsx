@@ -12,7 +12,6 @@ export default function _layout() {
   const [loaded, error] = useFonts({
     Mono: require("../../assets/fonts/mono/SpaceMono-Regular.ttf"),
     MonoBold: require("../../assets/fonts/mono/SpaceMono-Bold.ttf"),
-    Cursive: require("../../assets/fonts/cursive/CedarvilleCursive-Regular.ttf"),
   });
 
   useEffect(() => {
