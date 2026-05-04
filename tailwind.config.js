@@ -14,7 +14,7 @@ module.exports = {
     extend: {
       colors: {
         brand: { DEFAULT: "#1565C0" },
-        danger: { DEFAULT: "#9F403D" },
+        danger: { DEFAULT: "#CC2200" },
         text: {
           secondary: "#007AFF",
           teritary: "#4A90A4",
