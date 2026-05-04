@@ -1,10 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Tabs } from "expo-router";
 import { Search, Cloud } from "lucide-react-native";
 import "../../global.css";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function _layout() {
+  const [loaded, error] = useFonts({
+    Mono: require("../../assets/fonts/mono/SpaceMono-Regular.ttf"),
+    MonoBold: require("../../assets/fonts/mono/SpaceMono-Bold.ttf"),
+    Cursive: require("../../assets/fonts/cursive/CedarvilleCursive-Regular.ttf"),
+  });
+
+  useEffect(() => {
+    if (loaded || error) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded, error]);
+
+  if (!loaded && !error) {
+    return null;
+  }
+
   return (
     <GluestackUIProvider mode="light">
       <Tabs
