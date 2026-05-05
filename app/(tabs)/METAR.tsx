@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "@/components/header";
@@ -18,7 +18,7 @@ export default function METAR() {
     <SafeAreaView edges={["top"]} className="flex flex-1 bg-white">
       <Header></Header>
       {metar ? (
-        <View className="flex-1 bg-text-nuetral px-6 mt-4">
+        <ScrollView className="flex-1 bg-text-nuetral px-6 mt-4" contentContainerClassName="pb-8">
           {/*Airport Information */}
           <ThemedText styles="text-[32px]">
             {metarParsed.data[0].station.icao}
@@ -91,7 +91,7 @@ export default function METAR() {
               </View>
             </View>
           </View>
-        </View>
+        </ScrollView>
       ) : (
         <View className="flex-1 bg-text-nuetral justify-center items-center">
           <ThemedTextBold styles="text-center">
