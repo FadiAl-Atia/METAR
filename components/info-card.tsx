@@ -20,7 +20,7 @@ export default function InfoCard({
   r2_value,
 }: InfoCardProps) {
   return (
-    <View className="p-4 bg-white gap-4 w-4/5 rounded-lg shadow-lg shadow-black/20">
+    <View className="p-4 bg-white gap-4 w-4/5 rounded-lg shadow-lg shadow-black/20 self-center">
       <View className="flex flex-row justify-between">
         <ThemedText>{title}</ThemedText>
         {icon}
