@@ -84,6 +84,11 @@ export default function METAR() {
                   <ThemedText styles="text-brand">COPY</ThemedText>
                 </View>
               </View>
+              <View className="w-full bg-black p-4 my-3 rounded">
+                <ThemedText styles="text-[#34D399]">
+                  {metarParsed.data[0].raw_text}
+                </ThemedText>
+              </View>
             </View>
           </View>
         </View>
