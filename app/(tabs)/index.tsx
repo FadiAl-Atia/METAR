@@ -7,21 +7,13 @@ import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input";
 import ThemedText from "@/components/themed";
 import { Button, ButtonText } from "@/components/ui/button";
 import { useForm } from "@tanstack/react-form";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { router } from "expo-router";
 
 export default function index() {
   const [airport, setAirport] = useState("");
   const queryClient = useQueryClient();
-
-  const config = {
-    method: "get",
-    url: `https://api.checkwx.com/v2/metar/${airport}/decoded`,
-    headers: {
-      "X-API-KEY": `${process.env.EXPO_PUBLIC_CHECKWX_API_KEY}`,
-    },
-  };
 
   const fetchMetar = async (icao: string) => {
     const res = await axios.request({
@@ -31,11 +23,6 @@ export default function index() {
     });
     return res.data;
   };
-  // const query = useQuery({
-  //   queryKey: ["metar", airport],
-  //   queryFn: () => fetchMetar(airport),
-  //   enabled: !!airport, //Won't work if no airport is chosen.
-  // });
 
   const form = useForm({
     defaultValues: {
@@ -48,7 +35,13 @@ export default function index() {
         queryKey: ["metar", value.airport],
         queryFn: () => fetchMetar(value.airport),
       });
-      router.navigate("/(tabs)/METAR");
+      console.log(JSON.stringify(data));
+      router.navigate({
+        pathname: "/(tabs)/METAR",
+        params: {
+          metar: JSON.stringify(data),
+        },
+      });
     },
   });
 

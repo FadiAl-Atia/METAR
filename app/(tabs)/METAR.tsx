@@ -2,8 +2,10 @@ import { View, Text } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "@/components/header";
+import { useLocalSearchParams } from "expo-router";
 
 export default function METAR() {
+  const { metar } = useLocalSearchParams();
   return (
     <SafeAreaView edges={["top"]} className="flex flex-1 bg-white">
       <Header />
