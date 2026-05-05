@@ -7,6 +7,9 @@ import InfoCard from "@/components/info-card";
 import Thermo from "@/assets/icons/thermo";
 import ThemedTextBold from "@/components/themed-bold";
 import ThemedText from "@/components/themed";
+import Pressure from "@/assets/icons/pressure";
+import Cloud from "@/assets/icons/cloud";
+import { Copy, CopyIcon } from "lucide-react-native";
 
 export default function METAR() {
   const { metar } = useLocalSearchParams();
@@ -31,35 +34,58 @@ export default function METAR() {
               {metarParsed.data[0].flight_category}
             </ThemedTextBold>
           </View>
-          {/*Temperature*/}
-          <View className="p-4 bg-white gap-4 w-full rounded-lg shadow-lg shadow-black/20 ">
-            <View className="flex flex-row justify-between px-2">
-              <ThemedText>TEMPRATURE & DEWPOINT</ThemedText>
-              <Thermo></Thermo>
-            </View>
-            <View className="flex flex-row w-full justify-around">
-              <View className="p-2">
-                <ThemedText>Temp</ThemedText>
-                <ThemedText styles="text-[32px]">
-                  {metarParsed.data[0].temperature.celsius}°C
-                </ThemedText>
+          {/*Cards Container */}
+          <View className="flex gap-4 w-full">
+            {/*Temperature*/}
+            <View className="p-4 bg-white gap-4 w-full rounded-lg shadow-lg shadow-black/20 ">
+              <View className="flex flex-row justify-between px-2">
+                <ThemedText>TEMPRATURE & DEWPOINT</ThemedText>
+                <Thermo></Thermo>
               </View>
-              <View className="p-2">
-                <ThemedText>Dewpoint</ThemedText>
-                <ThemedText styles="text-[32px]">
-                  {metarParsed.data[0].dewpoint.celsius}°C
-                </ThemedText>
+              <View className="flex flex-row w-full justify-around">
+                <View className="p-2">
+                  <ThemedText>Temp</ThemedText>
+                  <ThemedText styles="text-[32px]">
+                    {metarParsed.data[0].temperature.celsius}°C
+                  </ThemedText>
+                </View>
+                <View className="p-2">
+                  <ThemedText>Dewpoint</ThemedText>
+                  <ThemedText styles="text-[32px]">
+                    {metarParsed.data[0].dewpoint.celsius}°C
+                  </ThemedText>
+                </View>
+              </View>
+            </View>
+            {/*Atmoshpere */}
+            <InfoCard
+              title="ATMOSPHERIC"
+              r1_title="Humidity"
+              icon={<Pressure />}
+              r1_value={metarParsed.data[0].humidity}
+              r2_title="QNH (Altimeter)"
+              r2_value={metarParsed.data[0].pressure.mb}
+            />
+            {/*Visibility */}
+            <InfoCard
+              title="VISIBILITY & SKY"
+              r1_title="Visibility"
+              icon={<Cloud />}
+              r1_value={metarParsed.data[0].visibility.miles}
+              r2_title="Clouds"
+              r2_value={`${metarParsed.data[0].clouds[0].code} ${metarParsed.data[0].clouds[0].feet}FT`}
+            />
+            {/*RAW Metar */}
+            <View className="w-full">
+              <View className="flex flex-row justify-between">
+                <ThemedText>Raw METAR</ThemedText>
+                <View className="flex flex-row items-center gap-2">
+                  <CopyIcon color={"#1565C0"} />
+                  <ThemedText styles="text-brand">COPY</ThemedText>
+                </View>
               </View>
             </View>
           </View>
-          {/* <InfoCard
-            title="TEMPERATURE & DEWPOINT"
-            r1_title="Humidity"
-            icon={<Thermo />}
-            r1_value={68}
-            r2_title="QNH (Altimeter)"
-            r2_value={1013}
-          /> */}
         </View>
       ) : (
         <View className="flex-1 bg-text-nuetral justify-center items-center">
