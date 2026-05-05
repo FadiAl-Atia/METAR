@@ -7,7 +7,6 @@ import InfoCard from "@/components/info-card";
 import Thermo from "@/assets/icons/thermo";
 import ThemedTextBold from "@/components/themed-bold";
 import ThemedText from "@/components/themed";
-import Globe from "@/assets/icons/globe";
 
 export default function METAR() {
   const { metar } = useLocalSearchParams();
