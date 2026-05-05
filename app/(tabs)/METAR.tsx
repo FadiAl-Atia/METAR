@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "@/components/header";
@@ -10,6 +10,7 @@ import ThemedText from "@/components/themed";
 import Pressure from "@/assets/icons/pressure";
 import Cloud from "@/assets/icons/cloud";
 import { Copy, CopyIcon } from "lucide-react-native";
+import * as Clipboard from "expo-clipboard";
 
 export default function METAR() {
   const { metar } = useLocalSearchParams();
@@ -18,6 +19,10 @@ export default function METAR() {
   const cloudsValue = cloudLayer
     ? `${cloudLayer.code ?? "Unknown"} ${cloudLayer.feet ?? "Unknown"}FT`
     : "Clear";
+
+  const copyToClipboard = async () => {
+    await Clipboard.setStringAsync(metarParsed.data[0].raw_text || "Unknown");
+  };
   return (
     <SafeAreaView edges={["top"]} className="flex flex-1 bg-white">
       <Header></Header>
@@ -86,10 +91,13 @@ export default function METAR() {
             <View className="w-full">
               <View className="flex flex-row justify-between">
                 <ThemedText>Raw METAR</ThemedText>
-                <View className="flex flex-row items-center gap-2">
+                <TouchableOpacity
+                  className="flex flex-row items-center gap-2"
+                  onPress={copyToClipboard}
+                >
                   <CopyIcon color={"#1565C0"} />
                   <ThemedText styles="text-brand">COPY</ThemedText>
-                </View>
+                </TouchableOpacity>
               </View>
               <View className="w-full bg-black p-4 my-3 rounded">
                 <ThemedText styles="text-[#34D399]">
