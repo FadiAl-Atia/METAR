@@ -25,22 +25,41 @@ export default function METAR() {
           </ThemedText>
           {/*Flight Category */}
           <View
-            className={`px-3 py-1 self-start justify-center items-center rounded-full ${metarParsed.data[0].flight_category === "VFR" ? "bg-green-500" : "bg-red-500"}`}
+            className={`px-3 py-1 self-start justify-center items-center rounded-full mb-4 ${metarParsed.data[0].flight_category === "VFR" ? "bg-green-500" : "bg-red-500"}`}
           >
             <ThemedTextBold styles="text-black">
               {metarParsed.data[0].flight_category}
             </ThemedTextBold>
           </View>
-          {/*Weather*/}
-          <View className="p-4 bg-white gap-4 w-4/5 rounded-lg shadow-lg shadow-black/20 self-center"></View>
-          <InfoCard
+          {/*Temperature*/}
+          <View className="p-4 bg-white gap-4 w-full rounded-lg shadow-lg shadow-black/20 ">
+            <View className="flex flex-row justify-between px-2">
+              <ThemedText>TEMPRATURE & DEWPOINT</ThemedText>
+              <Thermo></Thermo>
+            </View>
+            <View className="flex flex-row w-full justify-around">
+              <View className="p-2">
+                <ThemedText>Temp</ThemedText>
+                <ThemedText styles="text-[32px]">
+                  {metarParsed.data[0].temperature.celsius}°C
+                </ThemedText>
+              </View>
+              <View className="p-2">
+                <ThemedText>Dewpoint</ThemedText>
+                <ThemedText styles="text-[32px]">
+                  {metarParsed.data[0].dewpoint.celsius}°C
+                </ThemedText>
+              </View>
+            </View>
+          </View>
+          {/* <InfoCard
             title="TEMPERATURE & DEWPOINT"
             r1_title="Humidity"
             icon={<Thermo />}
             r1_value={68}
             r2_title="QNH (Altimeter)"
             r2_value={1013}
-          />
+          /> */}
         </View>
       ) : (
         <View className="flex-1 bg-text-nuetral justify-center items-center">
