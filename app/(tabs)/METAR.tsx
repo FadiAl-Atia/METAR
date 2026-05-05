@@ -1,10 +1,15 @@
 import { View, Text } from "react-native";
 import React from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Header from "@/components/header";
+import { useLocalSearchParams } from "expo-router";
 
 export default function METAR() {
+  const { metar } = useLocalSearchParams();
   return (
-    <View>
-      <Text>METAR</Text>
-    </View>
+    <SafeAreaView edges={["top"]} className="flex flex-1 bg-white">
+      <Header />
+      <View className="flex-1 bg-text-nuetral justify-center items-center"></View>
+    </SafeAreaView>
   );
 }
