@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Tabs } from "expo-router";
 import { Search, Cloud } from "lucide-react-native";
 import "../../global.css";
@@ -14,7 +14,6 @@ export default function _layout() {
     Mono: require("../../assets/fonts/mono/SpaceMono-Regular.ttf"),
     MonoBold: require("../../assets/fonts/mono/SpaceMono-Bold.ttf"),
   });
-
   const queryClient = new QueryClient();
 
   useEffect(() => {

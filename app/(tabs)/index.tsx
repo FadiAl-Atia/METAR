@@ -7,16 +7,44 @@ import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input";
 import ThemedText from "@/components/themed";
 import { Button, ButtonText } from "@/components/ui/button";
 import { useForm } from "@tanstack/react-form";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 
 export default function index() {
+  const [airport, setAirport] = useState("");
+  const BASE_URL = "https://api.checkwx.com";
   const queryClient = useQueryClient();
+
+  const config = {
+    method: "get",
+    url: `https://api.checkwx.com/v2/metar/${airport}/decoded`,
+    headers: {
+      "X-API-KEY": `${process.env.EXPO_PUBLIC_CHECKWX_API_KEY}`,
+    },
+  };
+
+  const fetchMetar = async () => {
+    try {
+      const res = await axios.request(config);
+      console.log(JSON.stringify(res.data));
+      return res.data;
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+  const query = useQuery({
+    queryKey: ["metar", airport],
+    queryFn: () => fetchMetar(),
+    enabled: !!airport, //Won't work if no airport is chosen.
+  });
+
   const form = useForm({
     defaultValues: {
       airport: "KJFK",
     },
     onSubmit: async ({ value }) => {
       console.log(value.airport);
+      setAirport(value.airport);
     },
   });
 
