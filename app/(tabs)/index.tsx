@@ -7,14 +7,41 @@ import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input";
 import ThemedText from "@/components/themed";
 import { Button, ButtonText } from "@/components/ui/button";
 import { useForm } from "@tanstack/react-form";
+import { useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
+import { router } from "expo-router";
 
 export default function index() {
+  const [airport, setAirport] = useState("");
+  const queryClient = useQueryClient();
+
+  const fetchMetar = async (icao: string) => {
+    const res = await axios.request({
+      method: "get",
+      url: `https://api.checkwx.com/v2/metar/${icao}/decoded`,
+      headers: { "X-API-KEY": process.env.EXPO_PUBLIC_CHECKWX_API_KEY },
+    });
+    return res.data;
+  };
+
   const form = useForm({
     defaultValues: {
       airport: "KJFK",
     },
     onSubmit: async ({ value }) => {
+      setAirport(value.airport);
       console.log(value.airport);
+      const data = await queryClient.fetchQuery({
+        queryKey: ["metar", value.airport],
+        queryFn: () => fetchMetar(value.airport),
+      });
+      console.log(JSON.stringify(data));
+      router.navigate({
+        pathname: "/(tabs)/METAR",
+        params: {
+          metar: JSON.stringify(data),
+        },
+      });
     },
   });
 
