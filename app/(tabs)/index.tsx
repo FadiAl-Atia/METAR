@@ -7,8 +7,10 @@ import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input";
 import ThemedText from "@/components/themed";
 import { Button, ButtonText } from "@/components/ui/button";
 import { useForm } from "@tanstack/react-form";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function index() {
+  const queryClient = useQueryClient();
   const form = useForm({
     defaultValues: {
       airport: "KJFK",

@@ -7,7 +7,7 @@ export default function METAR() {
   return (
     <SafeAreaView edges={["top"]} className="flex flex-1 bg-white">
       <Header />
-      <View className="flex-1 bg-text-nuetral pl-4 justify-center items-center"></View>
+      <View className="flex-1 bg-text-nuetral justify-center items-center"></View>
     </SafeAreaView>
   );
 }
