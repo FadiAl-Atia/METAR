@@ -25,7 +25,13 @@ export default function METAR() {
             {metarParsed.data[0].station.name}
           </ThemedText>
           {/*Flight Category */}
-
+          <View
+            className={`px-3 py-1 self-start justify-center items-center rounded-full ${metarParsed.data[0].flight_category === "VFR" ? "bg-green-500" : "bg-red-500"}`}
+          >
+            <ThemedTextBold styles="text-black">
+              {metarParsed.data[0].flight_category}
+            </ThemedTextBold>
+          </View>
           {/*Weather*/}
           <View className="p-4 bg-white gap-4 w-4/5 rounded-lg shadow-lg shadow-black/20 self-center"></View>
           <InfoCard
