@@ -9,7 +9,7 @@ export default function ThemedTextBold(props: ThemedTextProps) {
   //The props will have the styles and the content (children)
   return (
     <View>
-      <Text className={props.styles + "font-[MonoBold]"}>{props.children}</Text>
+      <Text className={`${props.styles ?? ""} font-[MonoBold]`}>{props.children}</Text>
     </View>
   );
 }
