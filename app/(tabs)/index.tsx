@@ -9,10 +9,10 @@ import { Button, ButtonText } from "@/components/ui/button";
 import { useForm } from "@tanstack/react-form";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { router } from "expo-router";
 
 export default function index() {
   const [airport, setAirport] = useState("");
-  const BASE_URL = "https://api.checkwx.com";
   const queryClient = useQueryClient();
 
   const config = {
@@ -23,28 +23,32 @@ export default function index() {
     },
   };
 
-  const fetchMetar = async () => {
-    try {
-      const res = await axios.request(config);
-      console.log(JSON.stringify(res.data));
-      return res.data;
-    } catch (err: any) {
-      console.log(err);
-    }
+  const fetchMetar = async (icao: string) => {
+    const res = await axios.request({
+      method: "get",
+      url: `https://api.checkwx.com/v2/metar/${icao}/decoded`,
+      headers: { "X-API-KEY": process.env.EXPO_PUBLIC_CHECKWX_API_KEY },
+    });
+    return res.data;
   };
-  const query = useQuery({
-    queryKey: ["metar", airport],
-    queryFn: () => fetchMetar(),
-    enabled: !!airport, //Won't work if no airport is chosen.
-  });
+  // const query = useQuery({
+  //   queryKey: ["metar", airport],
+  //   queryFn: () => fetchMetar(airport),
+  //   enabled: !!airport, //Won't work if no airport is chosen.
+  // });
 
   const form = useForm({
     defaultValues: {
       airport: "KJFK",
     },
     onSubmit: async ({ value }) => {
-      console.log(value.airport);
       setAirport(value.airport);
+      console.log(value.airport);
+      const data = await queryClient.fetchQuery({
+        queryKey: ["metar", value.airport],
+        queryFn: () => fetchMetar(value.airport),
+      });
+      router.navigate("/(tabs)/METAR");
     },
   });
 
