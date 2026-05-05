@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "@/components/header";
 import { useLocalSearchParams } from "expo-router";
 import InfoCard from "@/components/info-card";
+import Thermo from "@/assets/icons/thermo";
 
 export default function METAR() {
   const { metar } = useLocalSearchParams();
@@ -14,6 +15,7 @@ export default function METAR() {
         <InfoCard
           title="TEMPERATURE & DEWPOINT"
           r1_title="Humidity"
+          icon={<Thermo></Thermo>}
           r1_value={68}
           r2_title="QNH (Altimeter)"
           r2_value={1013}
