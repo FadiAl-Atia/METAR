@@ -1,4 +1,4 @@
-import { Image, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "@/components/header";
@@ -59,28 +59,39 @@ export default function index() {
         </View>
         <form.Field
           name="airport"
+          validators={{
+            onChange: ({ value }) =>
+              value.length <= 0 ? "Airport ICAO must not be empty" : undefined,
+          }}
           children={(field) => {
             return (
-              <Input
-                variant="rounded"
-                size="md"
-                isRequired={true}
-                className={`w-3/4 border-[#94A3B8] mb-6`}
-              >
-                <InputSlot className="pl-3">
-                  <InputIcon as={Search} color="#94A3B8"></InputIcon>
-                </InputSlot>
-                <InputField
-                  placeholder="Enter the airport ICAO"
-                  maxLength={4}
-                  placeholderTextColor={"#94A3B8"}
-                  autoCapitalize="characters"
-                  value={field.state.value}
-                  onBlur={field.handleBlur}
-                  selectTextOnFocus
-                  onChange={(e) => field.handleChange(e.nativeEvent.text)}
-                ></InputField>
-              </Input>
+              <View>
+                <Input
+                  variant="rounded"
+                  size="md"
+                  isRequired={true}
+                  className={`w-3/4 border-[#94A3B8] mb-3`}
+                >
+                  <InputSlot className="pl-3">
+                    <InputIcon as={Search} color="#94A3B8"></InputIcon>
+                  </InputSlot>
+                  <InputField
+                    placeholder="Enter the airport ICAO"
+                    maxLength={4}
+                    placeholderTextColor={"#94A3B8"}
+                    autoCapitalize="characters"
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    selectTextOnFocus
+                    onChange={(e) => field.handleChange(e.nativeEvent.text)}
+                  ></InputField>
+                </Input>
+                {!field.state.meta.isValid && (
+                  <ThemedText styles="text-red-500 mb-4">
+                    {field.state.meta.errors.join(", ")}
+                  </ThemedText>
+                )}
+              </View>
             );
           }}
         ></form.Field>
