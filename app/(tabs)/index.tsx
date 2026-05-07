@@ -84,10 +84,11 @@ export default function index() {
                     onBlur={field.handleBlur}
                     selectTextOnFocus
                     onChange={(e) => field.handleChange(e.nativeEvent.text)}
+                    testID="ICAOInput"
                   ></InputField>
                 </Input>
                 {!field.state.meta.isValid && (
-                  <ThemedText styles="text-red-500 mb-4">
+                  <ThemedText styles="text-red-500 mb-4" testID="ErrorText">
                     {field.state.meta.errors.join(", ")}
                   </ThemedText>
                 )}
@@ -102,6 +103,7 @@ export default function index() {
           action="primary"
           className="bg-brand mb-3"
           onPress={form.handleSubmit}
+          testID="SubmitButton"
         >
           <ButtonText>Submit</ButtonText>
         </Button>
