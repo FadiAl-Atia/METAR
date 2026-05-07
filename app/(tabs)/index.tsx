@@ -1,8 +1,8 @@
-import { View } from "react-native";
+import { Image, View } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "@/components/header";
-import { Plane, Search } from "lucide-react-native";
+import { Search } from "lucide-react-native";
 import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input";
 import ThemedText from "@/components/themed";
 import { Button, ButtonText } from "@/components/ui/button";
@@ -50,7 +50,12 @@ export default function index() {
       <Header />
       <View className="flex-1 bg-text-nuetral justify-center items-center">
         <View className="h-16 w-16 bg-[#e6ebf0] flex justify-center items-center rounded-full mb-6 ">
-          <Plane color={"#1565C0"} fill={"#1565C0"} strokeWidth={1}></Plane>
+          <Image
+            source={require("../../assets/logo/logo-no-bg.png")}
+            height={32}
+            width={32}
+            className="w-8 h-8"
+          />
         </View>
         <form.Field
           name="airport"
