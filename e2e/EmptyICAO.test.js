@@ -4,7 +4,7 @@ describe("User entered an empty ICAO", () => {
   });
 
   it("should show error if the ICAO is empty", async () => {
-    await element(by.id("ICAOInput")).typeText("");
+    await element(by.id("ICAOInput")).clearText();
     await element(by.id("SubmitButton")).tap();
     await expect(element(by.id("ErrorText"))).toBeVisible();
   });
