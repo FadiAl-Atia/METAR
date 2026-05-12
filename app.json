@@ -34,10 +34,12 @@
     "plugins": [
       "expo-router",
       "expo-font",
-      "expo-location",
-      {
-        "locationAlwaysAndWhenInUsePermission": "Allow MetarCheck to use your location."
-      }
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow MetarCheck to use your location."
+        }
+      ]
     ]
   }
 }

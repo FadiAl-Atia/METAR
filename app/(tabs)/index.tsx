@@ -1,5 +1,5 @@
 import { Image, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "@/components/header";
 import { Search } from "lucide-react-native";
@@ -10,10 +10,66 @@ import { useForm } from "@tanstack/react-form";
 import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { router } from "expo-router";
-import { z } from "zod";
+import * as Location from "expo-location";
+import ThemedTextBold from "@/components/themed-bold";
+
+type NearbyAirport = {
+  icao: string;
+  iata: string;
+  name: string;
+  shortName: string;
+  municipalityName: string;
+  location: { lat: number; lon: number };
+  countryCode: string;
+};
+
 export default function index() {
   const [airport, setAirport] = useState("");
   const queryClient = useQueryClient();
+  const [location, setLocation] = useState<Location.LocationObject | null>(
+    null,
+  );
+  const [airportsList, setAirportsList] = useState<NearbyAirport[]>([]);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  const fetchNearbyAirports = async (lat: number, lon: number) => {
+    const res = await axios.request({
+      method: "GET",
+      url: "https://aerodatabox.p.rapidapi.com/airports/search/location",
+      params: {
+        lat: lat,
+        lon: lon,
+        radiusKm: "500",
+        limit: "3",
+        withFlightInfoOnly: "false",
+      },
+      headers: {
+        "x-rapidapi-key": process.env.EXPO_PUBLIC_AERODATA_API_KEY,
+        "x-rapidapi-host": "aerodatabox.p.rapidapi.com",
+        "Content-Type": "application/json",
+      },
+    });
+    const items: NearbyAirport[] = res.data?.items ?? [];
+    setAirportsList(items);
+    console.log("Airports Nearby:", items);
+    return res.data;
+  };
+
+  useEffect(() => {
+    async function getCurrentLocation() {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+      fetchNearbyAirports(location.coords.latitude, location.coords.longitude);
+    }
+
+    getCurrentLocation();
+  }, []);
 
   const fetchMetar = async (icao: string) => {
     const res = await axios.request({
@@ -52,8 +108,6 @@ export default function index() {
         <View className="h-16 w-16 bg-[#e6ebf0] flex justify-center items-center rounded-full mb-6 ">
           <Image
             source={require("../../assets/logo/logo-no-bg.png")}
-            height={32}
-            width={32}
             className="w-8 h-8"
           />
         </View>
@@ -105,9 +159,18 @@ export default function index() {
         >
           <ButtonText>Submit</ButtonText>
         </Button>
-        <ThemedText styles="text-[#94A3B8] text-sm text-center">
+        <ThemedText styles="text-[#94A3B8] text-sm text-center mb-8">
           Quickly acces METAR data for any airport around the planet.
         </ThemedText>
+        <View className="bg-white w-3/4 items-center rounded justify-center">
+          <ThemedTextBold styles="mb-4">Nearby Airports:</ThemedTextBold>
+
+          <View className="justify-center items-center gap-4">
+            {airportsList.map((airport) => (
+              <ThemedTextBold key={airport.icao}>{airport.icao}</ThemedTextBold>
+            ))}
+          </View>
+        </View>
       </View>
     </SafeAreaView>
   );
