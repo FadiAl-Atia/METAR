@@ -1,4 +1,4 @@
-import { Image, Text, View } from "react-native";
+import { ActivityIndicator, Image, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "@/components/header";
@@ -162,13 +162,23 @@ export default function index() {
         <ThemedText styles="text-[#94A3B8] text-sm text-center mb-8">
           Quickly acces METAR data for any airport around the planet.
         </ThemedText>
-        <View className="bg-white w-3/4 items-center rounded justify-center">
+        <View className="bg-white w-3/4 items-center rounded justify-center p-4">
           <ThemedTextBold styles="mb-4">Nearby Airports:</ThemedTextBold>
-
           <View className="justify-center items-center gap-4">
-            {airportsList.map((airport) => (
-              <ThemedTextBold key={airport.icao}>{airport.icao}</ThemedTextBold>
-            ))}
+            {airportsList.length > 0 ? (
+              <View>
+                {airportsList.map((airport) => (
+                  <ThemedTextBold key={airport.icao}>
+                    {airport.icao}
+                  </ThemedTextBold>
+                ))}
+              </View>
+            ) : (
+              <ActivityIndicator
+                size={"large"}
+                color={"#e6ebf0"}
+              ></ActivityIndicator>
+            )}
           </View>
         </View>
       </View>
