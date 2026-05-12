@@ -31,6 +31,13 @@
       "favicon": "./assets/logo/logo-no-bg.png",
       "bundler": "metro"
     },
-    "plugins": ["expo-router", "expo-font"]
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-location",
+      {
+        "locationAlwaysAndWhenInUsePermission": "Allow MetarCheck to use your location."
+      }
+    ]
   }
 }
