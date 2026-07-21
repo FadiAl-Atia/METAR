@@ -39,7 +39,9 @@
         {
           "locationAlwaysAndWhenInUsePermission": "Allow MetarCheck to use your location."
         }
-      ]
+      ],
+      "expo-status-bar",
+      "expo-splash-screen"
     ]
   }
 }
