@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Tabs } from "expo-router";
-import { Search, Cloud } from "lucide-react-native";
+import { Search, Cloud, Heart } from "lucide-react-native";
 import "../../global.css";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import { useFonts } from "expo-font";
@@ -59,6 +59,15 @@ export default function _layout() {
               title: "METAR",
               tabBarIcon: ({ color }) => {
                 return <Cloud color={color}></Cloud>;
+              },
+            }}
+          ></Tabs.Screen>
+          <Tabs.Screen
+            name="favorites"
+            options={{
+              title: "Favorites",
+              tabBarIcon: ({ color }) => {
+                return <Heart color={color}></Heart>;
               },
             }}
           ></Tabs.Screen>
