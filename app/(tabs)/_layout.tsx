@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Tabs } from "expo-router";
 import { Search, Cloud, Heart } from "lucide-react-native";
+import { SQLiteProvider } from "expo-sqlite";
+
 import "../../global.css";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import { useFonts } from "expo-font";
@@ -28,51 +30,53 @@ export default function _layout() {
 
   return (
     <GluestackUIProvider mode="light">
-      <QueryClientProvider client={queryClient}>
-        <Tabs
-          screenOptions={{
-            headerShown: false,
-            tabBarLabelStyle: {
-              fontFamily: "Mono",
-              marginTop: 2,
-            },
-            tabBarStyle: {
-              backgroundColor: "white",
-              borderRadius: 8,
-            },
+      <SQLiteProvider databaseName="favorites.db">
+        <QueryClientProvider client={queryClient}>
+          <Tabs
+            screenOptions={{
+              headerShown: false,
+              tabBarLabelStyle: {
+                fontFamily: "Mono",
+                marginTop: 2,
+              },
+              tabBarStyle: {
+                backgroundColor: "white",
+                borderRadius: 8,
+              },
 
-            tabBarActiveTintColor: "#1565C0",
-          }}
-        >
-          <Tabs.Screen
-            name="index"
-            options={{
-              tabBarIcon: ({ color }) => {
-                return <Search color={color}></Search>;
-              },
-              title: "Search",
+              tabBarActiveTintColor: "#1565C0",
             }}
-          ></Tabs.Screen>
-          <Tabs.Screen
-            name="METAR"
-            options={{
-              title: "METAR",
-              tabBarIcon: ({ color }) => {
-                return <Cloud color={color}></Cloud>;
-              },
-            }}
-          ></Tabs.Screen>
-          <Tabs.Screen
-            name="favorites"
-            options={{
-              title: "Favorites",
-              tabBarIcon: ({ color }) => {
-                return <Heart color={color}></Heart>;
-              },
-            }}
-          ></Tabs.Screen>
-        </Tabs>
-      </QueryClientProvider>
+          >
+            <Tabs.Screen
+              name="index"
+              options={{
+                tabBarIcon: ({ color }) => {
+                  return <Search color={color}></Search>;
+                },
+                title: "Search",
+              }}
+            ></Tabs.Screen>
+            <Tabs.Screen
+              name="METAR"
+              options={{
+                title: "METAR",
+                tabBarIcon: ({ color }) => {
+                  return <Cloud color={color}></Cloud>;
+                },
+              }}
+            ></Tabs.Screen>
+            <Tabs.Screen
+              name="favorites"
+              options={{
+                title: "Favorites",
+                tabBarIcon: ({ color }) => {
+                  return <Heart color={color}></Heart>;
+                },
+              }}
+            ></Tabs.Screen>
+          </Tabs>
+        </QueryClientProvider>
+      </SQLiteProvider>
     </GluestackUIProvider>
   );
 }
