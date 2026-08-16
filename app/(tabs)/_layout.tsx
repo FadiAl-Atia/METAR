@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Tabs } from "expo-router";
 import { Search, Cloud, Heart } from "lucide-react-native";
 import { SQLiteProvider } from "expo-sqlite";
+import { migrateDbAsync } from "@/db/schema";
 
 import "../../global.css";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
@@ -30,7 +31,7 @@ export default function _layout() {
 
   return (
     <GluestackUIProvider mode="light">
-      <SQLiteProvider databaseName="favorites.db">
+      <SQLiteProvider databaseName="favorites.db" onInit={migrateDbAsync}>
         <QueryClientProvider client={queryClient}>
           <Tabs
             screenOptions={{
