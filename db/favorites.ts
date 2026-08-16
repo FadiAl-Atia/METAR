@@ -1,10 +1,7 @@
 import type { SQLiteDatabase } from "expo-sqlite";
 import type { Airport } from "@/lib/airports";
 
-/**
- * One row of the `favorites` table. The field names match the columns exactly,
- * because expo-sqlite hands back plain objects keyed by column name.
- */
+// One row of the `favorites` table. Field names match the columns exactly.
 export type FavoriteAirport = {
   icao: string;
   iata: string | null;
@@ -22,11 +19,7 @@ export async function listFavoritesAsync(
   );
 }
 
-/**
- * `INSERT OR IGNORE` leans on the PRIMARY KEY: adding an airport that is
- * already saved is a no-op instead of an error, so the UI never has to check
- * first.
- */
+// OR IGNORE leans on the PRIMARY KEY: re-adding a saved airport is a no-op.
 export async function addFavoriteAsync(db: SQLiteDatabase, airport: Airport) {
   await db.runAsync(
     `INSERT OR IGNORE INTO favorites (icao, iata, name, city, country, created_at)

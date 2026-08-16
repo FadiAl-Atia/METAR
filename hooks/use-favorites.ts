@@ -9,10 +9,7 @@ import {
 } from "@/db/favorites";
 import type { Airport } from "@/lib/airports";
 
-/**
- * Reads the favorites table into React state and re-reads it after every
- * write. SQLite is the source of truth; this state is just a snapshot of it.
- */
+// SQLite is the source of truth; this state is a snapshot, re-read after writes.
 export function useFavorites() {
   const db = useSQLiteContext();
   const [favorites, setFavorites] = useState<FavoriteAirport[]>([]);

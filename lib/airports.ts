@@ -11,11 +11,7 @@ export type Airport = {
   tz: string;
 };
 
-/**
- * airports.json is ~7 MB keyed by ICAO. We only turn it into an array once,
- * the first time somebody actually searches, and keep it in module scope after
- * that so the cost is never paid twice.
- */
+// airports.json is ~7 MB keyed by ICAO. Parsed on first search, then cached.
 let cache: Airport[] | null = null;
 
 function allAirports(): Airport[] {
@@ -31,10 +27,7 @@ export function findAirport(icao: string): Airport | undefined {
   return allAirports().find((airport) => airport.icao === needle);
 }
 
-/**
- * Matches on ICAO, IATA, airport name and city. Results are ordered so the
- * most literal match (an exact ICAO) comes first.
- */
+// Matches ICAO, IATA, name and city, best match first.
 export function searchAirports(query: string, limit = 20): Airport[] {
   const needle = query.trim().toUpperCase();
   if (needle.length < 2) {
@@ -47,8 +40,7 @@ export function searchAirports(query: string, limit = 20): Airport[] {
     const rank = rankAirport(airport, needle);
     if (rank !== null) {
       results.push({ airport, rank });
-      // An exact ICAO hit is unique, nothing can outrank it.
-      if (rank === 0) break;
+      if (rank === 0) break; // exact ICAO is unique, nothing outranks it
     }
   }
 
