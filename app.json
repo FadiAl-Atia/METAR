@@ -20,12 +20,17 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.fadi.metarcheck",
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo/logo-no-bg.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ]
     },
     "web": {
       "favicon": "./assets/logo/logo-no-bg.png",
@@ -42,6 +47,12 @@
       ],
       "expo-status-bar",
       "expo-splash-screen"
-    ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "7861e29b-6b4f-4e9b-9e0e-585ba49db766"
+      }
+    }
   }
 }
